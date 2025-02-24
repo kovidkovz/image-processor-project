@@ -1,23 +1,31 @@
-from fastapi import FastAPI
-from api import upload, status, webhook
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+from api.upload import upload_file
+from api.status import get_status
+from api.webhook import webhook_logic
 import uvicorn
 import os
+from api.routes import UPLOAD, STATUS, WEBHOOK
 
-app = FastAPI(title="Image Processor API")
+app = FastAPI()
 
-# Include API routers
-app.include_router(upload.router, prefix="/api/v1")
-app.include_router(status.router, prefix="/api/v1")
-app.include_router(webhook.router, prefix="/api/v1")
-from fastapi import FastAPI
-from api import upload, status, webhook
+# upload api
+@app.post(UPLOAD)
+async def upload(request: Request):
+    payload, status_code = await upload_file(request)
+    return JSONResponse(content= payload, status_code= status_code)
 
-app = FastAPI(title="Image Processor API")
+# status api
+@app.get(STATUS)
+async def status(request: Request):
+    payload, status_code = await get_status(request)
+    return JSONResponse(content= payload, status_code= status_code)
 
-# Include API routers
-app.include_router(upload.router, prefix="/api/v1")
-app.include_router(status.router, prefix="/api/v1")
-app.include_router(webhook.router, prefix="/api/v1")
+# webhook
+@app.get(WEBHOOK)
+async def webhook(request: Request):
+    payload, status_code = await webhook_logic(request)
+    return JSONResponse(content= payload, status_code= status_code)
 
 # run the server
 if __name__ == "__main__":
