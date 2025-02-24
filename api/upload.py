@@ -1,8 +1,8 @@
 from fastapi import UploadFile, HTTPException, BackgroundTasks
 from routes import UPLOAD, router
 from utils.helpers import build_response
-from app.services.file_handler import process_csv
-from app.services.db_handler import insert_request
+from services.file_handler import process_csv
+from services.db_handler import insert_request
 from uuid import uuid4
 
 

@@ -1,4 +1,6 @@
 from routes import STATUS, router
+from services.db_handler import get_request_status
+from fastapi import HTTPException
 
 
 @router.get(STATUS)

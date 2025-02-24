@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from app.services.db_handler import mark_request_completed
+from services.db_handler import mark_request_completed
 
 router = APIRouter()
 

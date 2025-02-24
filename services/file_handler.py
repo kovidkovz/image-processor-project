@@ -1,9 +1,9 @@
 import csv
 from fastapi import UploadFile
-from app.services.image_processor import compress_image
-from app.services.db_handler import insert_product, update_product_status
+from services.image_processor import compress_image
+from services.db_handler import insert_product, update_product_status
 import os
-import asyncio
+import aiofiles
 
 async def process_csv(file: UploadFile, request_id: str):
     # Save the uploaded file temporarily

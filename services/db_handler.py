@@ -1,4 +1,4 @@
-from app.database import database
+from database import database
 
 async def insert_request(request_id: str):
     query = "INSERT INTO requests (request_id, status) VALUES (:request_id, 'PENDING')"
